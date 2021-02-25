@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+
+  <script>
+      //generate a random number within an array
+      function random(min, max) {
+          return Math.floor(Math.random() * (max - min) + min);
+      }
+
+      //capitalize a string
+      function capitalize(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      //generate random computer input for the game
+      function computerPlay() {
+          const play = ['rock', 'paper', 'scissors'];
+          return play[random(0,play.length)];
+      }
+
+      //function to play a round of rock-paper-scissors
+      function playRound(playerSelection, computerSelection) {
+        const play = ['rock', 'paper', 'scissors'];
+          let roundResults;
+
+          /* if player input is included in the play
+             array then proceed with comparing input
+
+             roundResults will have the value:
+              0 if its a tie
+              1 if player wins
+              -1 if computer wins
+              -2 if player input is invalid          */
+          if (play.includes(playerSelection.toLowerCase())) {
+            if (computerSelection == playerSelection.toLowerCase()) {
+              roundResults = 0;
+            } else {
+                if (computerSelection == 'rock') {
+                    if (playerSelection.toLowerCase() == 'paper') {
+                        roundResults = 1;
+                    } else if (playerSelection.toLowerCase() == 'scissors') {
+                        roundResults = -1;
+                    }
+                } else if (computerSelection == 'paper') {
+                  if (playerSelection.toLowerCase() == 'scissors') {
+                        roundResults = 1;
+                    } else if (playerSelection.toLowerCase() == 'rock') {
+                        roundResults = -1;
+                    }
+                } else if (computerSelection == 'scissors') {
+                  if (playerSelection.toLowerCase() == 'rock') {
+                        roundResults = 1;
+                    } else if (playerSelection.toLowerCase() == 'paper') {
+                        roundResults = -1;
+                    }
+                }
+            }
+          } else {
+              roundResults = -2;
+          }   
+
+          return roundResults;
+      }
+
+      function game () {
+          let computerScore = 0, playerScore = 0;
+          let rounds = 5;
+
+          for (i = 0; i < rounds; i++) {
+              //initialize inputs
+              const playerSelection = prompt("Please enter your input.");
+              const computerSelection = computerPlay();
+
+              //store the returned value of playRound into results to evaluate later
+              let results = playRound(playerSelection, computerSelection);
+
+              //add score into the respective winners and repeat the round if player has invalid input
+              if (results == 1) {
+                playerScore++;
+                console.log("You win this round! " + capitalize(playerSelection) + " beats " + computerSelection + "!");
+              } else if (results == -1) {
+                computerScore++;
+                console.log("Computer wins this round! " + capitalize(computerSelection) + " beats " + playerSelection + "!");
+              } else if (results == 0) {
+                console.log("Its a tie this round!");
+              } else {
+                console.log("Invalid input, please try again.");
+                i--;
+              }
+          }
+
+          console.log("****************************");
+          if (playerScore == computerScore) {
+              console.log("Its a tie!");
+          } else if (playerScore > computerScore) {
+              console.log("Congratulations, you win!");
+          } else if (computerScore > playerScore) {
+              console.log("Computer wins, better luck next time!");
+          }
+          console.log("****************************");
+
+          console.log("Computer score: " + computerScore);
+          console.log("Player score: " + playerScore);
+      }
+
+      game();
+
+  </script>
+</body>
+</html>
