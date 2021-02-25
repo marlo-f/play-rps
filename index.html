@@ -82,10 +82,10 @@
               //add score into the respective winners and repeat the round if player has invalid input
               if (results == 1) {
                 playerScore++;
-                console.log("You win this round! " + capitalize(playerSelection) + " beats " + computerSelection + "!");
+                console.log("You win this round! " + capitalize(playerSelection.toLowerCase()) + " beats " + computerSelection + "!");
               } else if (results == -1) {
                 computerScore++;
-                console.log("Computer wins this round! " + capitalize(computerSelection) + " beats " + playerSelection + "!");
+                console.log("Computer wins this round! " + capitalize(computerSelection) + " beats " + playerSelection.toLowerCase() + "!");
               } else if (results == 0) {
                 console.log("Its a tie this round!");
               } else {
@@ -108,6 +108,7 @@
           console.log("Player score: " + playerScore);
       }
 
+      //execute the game
       game();
 
   </script>
